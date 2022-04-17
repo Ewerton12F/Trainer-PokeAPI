@@ -53,12 +53,15 @@ http://127.0.0.1:8000/trainer/
 ✅ Divididir o back-end em 3 camadas
 
 1️⃣ API routes - [urls.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/urls.py)
+
 Camada responsável pela definição dos endpoints da API e tratamento das requisições e respostas da aplicação.
 
 2️⃣ Services - [views.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/views.py)
+
 Camada responsável pelas regras de negócios e por fazer a integração entre a camada de dados e a camada de API/Rotas.
 
 3️⃣ Models - [models.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/models.py)
+
 Camada responsável pela modelagem e acesso aos dados da aplicação.
 
 🚧 Integrar a PokeAPI para salvar os dados da requisição no banco de dados.
@@ -73,11 +76,14 @@ Camada responsável pela modelagem e acesso aos dados da aplicação.
 
 ### Python
 1 - A linguagem que eu tenho maior domínio;
+
 2 - Concisa;
+
 3 - Legível.
 
 ### Django Rest Framework
 1 - Diversas ferramentas incorporadas que facilitam o desenvolvimento
+
 2 - Com poucas linhas de código já é possível ter diversas funcionalidades
 
 ### .gitignore
@@ -92,13 +98,20 @@ may be distributed under different terms and without source code."
 
 # Avaliação:
 • Boas práticas no tratamento das requisições
+
 • Organização do projeto
+
 • Separação de responsabilidades das lógicas de negócio e apresentação
 
 ## Ponto extras
 • Implementar o contrato da API fornecido em OpenAPI 3.0
+
 • Implementar autenticação com JWT
+
 • Se possível colocar projeto disponível em um link público para visualização e teste.
+
 • A escolha de tecnologia fica a critério do avaliado, mas uma explicação do motivo da escolha é sempre bem vinda.
+
 • Um resumo de como foi feito o desenvolvimento, bem como um plano para as implementações que gostaria de ter feito.
+
 • Entregue o que você conseguir fazer.
