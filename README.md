@@ -54,15 +54,15 @@ http://127.0.0.1:8000/trainer/
 
 1️⃣ API routes - [urls.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/urls.py)
 
-Camada responsável pela definição dos endpoints da API e tratamento das requisições e respostas da aplicação.
+- Camada responsável pela definição dos endpoints da API e tratamento das requisições e respostas da aplicação.
 
 2️⃣ Services - [views.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/views.py)
 
-Camada responsável pelas regras de negócios e por fazer a integração entre a camada de dados e a camada de API/Rotas.
+- Camada responsável pelas regras de negócios e por fazer a integração entre a camada de dados e a camada de API/Rotas.
 
 3️⃣ Models - [models.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/models.py)
 
-Camada responsável pela modelagem e acesso aos dados da aplicação.
+- Camada responsável pela modelagem e acesso aos dados da aplicação.
 
 🚧 Integrar a PokeAPI para salvar os dados da requisição no banco de dados.
 
