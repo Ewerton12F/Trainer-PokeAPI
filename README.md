@@ -1,6 +1,8 @@
 # Trainer-PokeAPI 
 
 Esse é um projeto construído com Django Rest Framework para a implementação de uma Restful API seguindo o contrato fornecido em [Trainers API](https://app.swaggerhub.com/apis/fernando.celmer/trainers-api/1.0.0). No projeto também é feito o consumo da API externa [PokéAPI](https://pokeapi.co/).
+
+O que eu quero fazer é um aplicativo que possa criar um Treinador e adicionar a ele os Pokémons. Para adicionar o Pokémon é necessário apenas a inserção do nome para que a PokéAPI preencha o restante dos campos.
  
 ## 🧑‍🏫 Como usar:
 
@@ -41,16 +43,19 @@ Acesse:
 ```sh
 http://127.0.0.1:8000/trainer/
 ```
-
+ ✅ Já é possível criar instancias do Trainer. 
+ 
+ 🚧 Implementação do recurso Pokémon em progresso.
 
 ## 🛣️ Roadmap
+
 ✅ Ver exemplos de códigos e tutoriais de Django
 
 ✅ Entender a documentação [Trainers API](https://app.swaggerhub.com/apis/fernando.celmer/trainers-api/1.0.0).
 
 ✅ Entender como funciona as requisições para a API [PokéAPI](https://pokeapi.co/).
 
-✅ Divididir o back-end em 3 camadas
+✅ Divididir o back-end em 4 camadas
 
 1️⃣ API routes - [urls.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/urls.py)
 
@@ -64,6 +69,10 @@ http://127.0.0.1:8000/trainer/
 
 - Camada responsável pela modelagem e acesso aos dados da aplicação.
 
+4️⃣ Serializers - [serializers.py](https://github.com/Ewerton12F/Trainer-PokeAPI/blob/master/api/serializers.py)
+
+- Camada responsável por converter dados complexos como querysets e model instances em tipos de dados nativos do Python que podem ser renderizados em JSON, XML, entre outros.
+
 🚧 Integrar a PokeAPI para salvar os dados da requisição no banco de dados.
 
 🚧 Autenticação com JWT
@@ -71,6 +80,8 @@ http://127.0.0.1:8000/trainer/
 🚧 Testes com pytest
 
 🚧 Deploy no Heroku
+
+🚧 Implementação do front-end em React.
 
 ## 🚧 Detalhes:
 
@@ -86,13 +97,14 @@ http://127.0.0.1:8000/trainer/
 
 2 - Com poucas linhas de código já é possível ter diversas funcionalidades
 
+### React.js
+🚧
+
 ### .gitignore
 Arquivo .gitignore criado a partir do gitignore.io
 
-### [MIT License](https://choosealicense.com/licenses/mit/)
-"A short and simple permissive license with conditions only requiring preservation
-of copyright and license notices. Licensed works, modifications, and larger works
-may be distributed under different terms and without source code."
+### MIT License
+• Créditos pelo código
 
 ---
 
