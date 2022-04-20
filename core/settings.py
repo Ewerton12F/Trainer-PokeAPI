@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,8 +42,12 @@ INSTALLED_APPS = [
     # my apps
     'api.apps.ApiConfig',
 
-    # frameworks
+    # framework
     'rest_framework',
+    'corsheaders',
+
+    # frontend
+    'react_frontend',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +58,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # corsheaders
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+"""
+Since we are working full localhost, we will disable the CORS feature by adding 
+the following:
+"""
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'core.urls'
 
