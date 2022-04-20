@@ -1,3 +1,4 @@
+from re import T
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -66,6 +67,10 @@ class Trainer(models.Model):
         verbose_name=_('Trainer')
         verbose_name_plural=_('Trainers')
 
+
+    '''
+    TRY TO CREATE AN POKEMON OBJECT
+    '''
     @property
     def pokemons(self):
         return self.pokemon_set.all()
@@ -78,8 +83,13 @@ class Pokemon(models.Model):
     is_default = models.BooleanField(default=True, blank=True)
     order = models.IntegerField(default=0, blank=True)
     weight = models.IntegerField(default=0, blank=True)
-    ####### Many-to-one #######
-    trainer_id = models.ForeignKey(Trainer, on_delete=models.CASCADE, null=True)
+    
+    trainer_id = models.ForeignKey(
+        Trainer, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True
+    )
     
     def __str__(self):
         return self.name

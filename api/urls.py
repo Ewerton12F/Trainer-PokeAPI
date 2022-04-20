@@ -5,7 +5,8 @@ from . import views
 
 router = DefaultRouter()
 router.register('trainer', TrainerViewset, basename='trainer')
-#router.register('pokemon', PokemonViewset, basename='pokemon')
+router.register('trainer/<int:pk>/pokemons', TrainerViewset, basename='pokemons')    
+router.register('pokemon', PokemonViewset, basename='pokemon')
 urlpatterns = router.urls
 
 

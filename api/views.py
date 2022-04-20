@@ -22,14 +22,18 @@ class PokemonViewset(viewsets.ModelViewSet):
         serializer = TrainerSerializer(trainer, many=False)
         print(kwargs)
         return Response(serializer.data)
+# 4V /##########################################################################
 """
-     
+
 # 5V ###########################################################################
 class TrainerViewset(viewsets.ModelViewSet):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
 
     ############################### LIST TRAINER ###############################
+    '''
+    SUCCESS
+    '''
     def get_queryset(self):
         """ 200 - OK
         [
@@ -43,19 +47,21 @@ class TrainerViewset(viewsets.ModelViewSet):
             }
         ]
         """
-
-        """ 500 - Internal server error
-        {
-            "code": 0,
-            "type": "string",
-            "message": "string"
-        }
-        """
         trainer = Trainer.objects.all()
         return trainer
+    """ 500 - Internal server error
+    {
+        "code": 0,
+        "type": "string",
+        "message": "string"
+    }
+    """
     ##############################/ LIST TRAINER /##############################
 
     ############################ GET TRAINER BY ID #############################
+    '''
+    SUCCESS
+    '''
     def retrieve(self, request, *args, **kwargs):
         params = kwargs
         trainer = Trainer.objects.get(id=params['pk'])
@@ -64,18 +70,20 @@ class TrainerViewset(viewsets.ModelViewSet):
     ###########################/ GET TRAINER BY ID /############################
 
     ############################## CREATE TRAINER ##############################
-    """ Creates a new trainer
-        {
-            "nickname": "ash",
-            "first_name": "Ash",
-            "last_name": "Kutchum",
-            "email": "ash@pokemon.com",
-            "password": "coxinha123",
-            "team": "Team Valor"
-        }
-    """
-
+    '''
+    SUCCESS
+    '''
     def create(self, request, *args, **kwargs):
+        """ Creates a new trainer
+            {
+                "nickname": "ash",
+                "first_name": "Ash",
+                "last_name": "Kutchum",
+                "email": "ash@pokemon.com",
+                "password": "coxinha123",
+                "team": "Team Valor"
+            }
+        """
         serializer = TrainerSerializer(data=request.data, many=False)
         if serializer.is_valid():
             serializer.save()
@@ -110,56 +118,99 @@ class TrainerViewset(viewsets.ModelViewSet):
     #############################/ CREATE TRAINER /#############################
 
     ############################## CREATE POKEMON ##############################
-    @action(detail=True, methods=["GET"])
+    @action(detail=True, methods=["POST"])
     def pokemons(self, request, id=None):
 
-        # POKEAPI
+        # POKEAPI ##############################################################
+        '''
+        SUCCESS
+        '''
         def pokeapi(name): 
             api = f'https://pokeapi.co/api/v2/pokemon/{name}'
             get_response = requests.get(api)
             pokemon = get_response.json()
             return pokemon
-        
+        # POKEAPI /#############################################################
         pokemon_api_data = pokeapi(request.data['name'])
         print(pokemon_api_data)
 
+        # CREATE POKEMON + SAVING + RESPONSE ###################################
+        '''
+        ERROR:
+        IT COULDN'T CREATE A INSTANCE OF POKÉMON OBJECT
+        '''
         trainer = self.get_object()
         pokemons = Pokemon.objects.filter(trainer=trainer)
         serializer = PokemonSerializer(pokemons, many=True)
-        return Response(serializer.data, status=200)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # CREATE POKEMON + SAVING + RESPONSE /##################################
     #############################/ CREATE POKEMON /#############################
 
+# 5V /##########################################################################
 
-""" 
 # 3V ###########################################################################
 class PokemonViewset(viewsets.ModelViewSet):
     queryset = Pokemon.objects.all()
     serializer_class = PokemonSerializer
 
     # LIST POKEMONS
+    '''
+    SUCCESS
+    '''
     def get_queryset(self):
         pokemon = Pokemon.objects.all()
         return pokemon
     
     # POKEMON BY ID
+    '''
+    SUCCESS
+    '''
     def retrieve(self, request, *args, **kwargs):
         pokemon = Pokemon.objects.get(id=kwargs['pk'])
         serializer = PokemonSerializer(pokemon, many=False)
         return Response(serializer.data)
 
     # CREATE POKEMON
+    '''
+    SUCCESS
+    '''
     def create(self, request, *args, **kwargs):
-        # POKEAPI
+
+        # POKEAPI ##############################################################
+        '''
+        SUCCESS
+        '''
         def pokeapi(name): 
             api = f'https://pokeapi.co/api/v2/pokemon/{name}'
             get_response = requests.get(api)
             pokemon = get_response.json()
             return pokemon
+        # POKEAPI /#############################################################
         
+        # POKEAPI CONSOLE PRINT /###############################################
+        '''
+        SUCCESS
+        '''
         pokemon_api_data = pokeapi(request.data['name'])
+        
+        print(f"---Pokemon: {request.data['name']}")
+        print(f"---Base Experience: {pokemon_api_data['base_experience']}")
+        print(f"---Height: {pokemon_api_data['height']}")
+        print(f"---Is default: {pokemon_api_data['is_default']}")
+        print(f"---Order: {pokemon_api_data['order']}")
+        print(f"---Weight: {pokemon_api_data['weight']}")
+        # POKEAPI CONSOLE PRINT /###############################################
 
-        #print(pokemon_api_data)
-
+        # POKEAPI OBJECT CONSTRUCTION /#########################################
+        '''
+        ERROR:
+        IT COULDN'T CREATE AN OBJECT
+        '''
         new_pokemon = Pokemon.objects.create(
             name = request.data['name'],
             base_experience = pokemon_api_data['base_experience'],
@@ -168,41 +219,25 @@ class PokemonViewset(viewsets.ModelViewSet):
             order = pokemon_api_data['order'],
             weight = pokemon_api_data['weight'], 
         )
-
         new_pokemon.save()
+        # POKEAPI OBJECT CONSTRUCTION /#########################################
         
-        print(new_pokemon)
-        
-        serializer = PokemonSerializer(data=request.data, many=False)
-
-        ''' 
-            PokemonSerializer(
-                data=<QueryDict: {
-                    'csrfmiddlewaretoken': 
-                        ['07beeqa6gMkMjpLfYzi4WY2VwYsOlw0W4MmPbNbaGvJJK4RAyAZHkgq1mPbpqCT7'],
-                        'name': ['pikachu'], 
-                        'base_experience': [''], 
-                        'height': [''], 
-                        'order': [''], 
-                        'weight': [''], 
-                        'trainer_id': ['1']}>):
-            id = IntegerField(read_only=True)
-            name = CharField(allow_blank=True, max_length=50, required=False)
-            base_experience = IntegerField(required=False)
-            height = IntegerField(required=False)
-            is_default = BooleanField(required=False)
-            order = IntegerField(required=False)
-            weight = IntegerField(required=False)
-            trainer_id = PrimaryKeyRelatedField(allow_null=True, queryset=Trainer.objects.all(), required=False)
+        # SERIALIZE ############################################################
         '''
+        ERROR:
+        IT COULDN'T SERIALIZE
+        '''
+        serializer = PokemonSerializer(new_pokemon, many=False)
+        # SERIALIZE /###########################################################
 
+        # SAVING + RESPONSE ####################################################
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-################################################################################
-"""
+        # SAVING + RESPONSE /###################################################
+# 3V /##########################################################################
 
 """ 
 # 2V ###########################################################################
@@ -225,7 +260,7 @@ def trainerId(request, pk):
     trainer = Trainer.objects.get(id=pk)
     serializer = TrainerSerializer(trainer, many=False)
     return Response(serializer.data)
-################################################################################
+# 2V /##########################################################################
 """
 """
 # 1V ###########################################################################
@@ -295,5 +330,5 @@ def pokemonId(request, pk):
 def pokemonDelete(request, pk):
     trainers = Trainer.objects.get(id=pk)
     trainers.delete() 
-################################################################################
+# 1V /##########################################################################
 """

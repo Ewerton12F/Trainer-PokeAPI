@@ -39,6 +39,10 @@ class TrainerSerializer(serializers.ModelSerializer):
             'pokemons_owned': {'read_only': True},
         }
 
+    '''
+    TRY TO CREATE A POKÉMON OBJECT
+    '''
+
     def create(self, validated_data):
         pokemons = validated_data.pop('pokemons')
         trainer = Trainer.objects.create(**validated_data)
